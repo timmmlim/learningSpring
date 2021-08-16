@@ -9,7 +9,9 @@ import spring.learning.demo.repositories.AuthorRepository;
 import spring.learning.demo.repositories.BookRepository;
 import spring.learning.demo.repositories.PublisherRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -28,7 +30,7 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-         // init authors & books
+        // init authors & books
         Author author1 = new Author("Author", "one");
         Book book1 = new Book("book1", "123");
 
@@ -53,23 +55,21 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Started in bootstrap");
         System.out.println("Number of Authors: " + authorRepository.count());
         System.out.println("Number of books: " + bookRepository.count());
-        Iterable<Book> bookAll = bookRepository.findAll();
-        for (Book book : bookAll) {
-            System.out.println(book.toString());
-        }
-
 
         // add publisher
         Publisher publisher = new Publisher();
         publisher.setCity("test city");
         publisher.setName("publisher");
+        book1.setPublisher(publisher);
+        book2.setPublisher(publisher);
+        publisher.getBooks().addAll(Arrays.asList(book1, book2));
+
         publisherRepository.save(publisher);
+        bookRepository.save(book1);
 
         // check result for publishers
-        Iterable<Publisher> all = publisherRepository.findAll();
-        all.forEach(p -> {
+        for (Publisher p : publisherRepository.findAll()) {
             System.out.println(p.toString());
-        });
-
+        }
     }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Authors List</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Authors List</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Number of Books</th>
+    </tr>
+    <tr th:each="author: ${authors}">
+        <td th:text="${author.id}">adsfsad</td>
+        <td th:text="${author.firstName}">asdfas</td>
+        <td th:text="${author.lastName}">asdf</td>
+        <td th:text="${author.books.size()}">asdfan</td>
+    </tr>
+
+</table>
+</body>
+</html>
